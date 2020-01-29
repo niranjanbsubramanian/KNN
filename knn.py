@@ -1,12 +1,15 @@
 
+import matplotlib.pyplot as plt
 import numpy as np
+from numpy import arange
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import cross_val_score from numpy import arange
+from sklearn.model_selection import cross_val_score
 
 np.random.seed(2019)
+
 X, y = make_classification(n_samples=300, n_features = 5, n_classes=2)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.33)
 
@@ -27,7 +30,6 @@ for k in ks:
 
 # plot mse vs K
 mse = [1 - x for x in scores]
-import matplotlib.pyplot as plt
 plt.plot(ks, mse)
 plt.xlabel('K')
 plt.ylabel('MSE')
@@ -37,7 +39,7 @@ plt.show()
 best_k = ks[mse.index(min(mse))]
 print(best_k)
 
-#train the knn with best k
+#train the knn with best k and print the accuracy
 knn = KNeighborsClassifier(n_neighbors=best_k) 
 knn.fit(X_train, y_train) 
 y_pred = knn.predict(X_test) 
